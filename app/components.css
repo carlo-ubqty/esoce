@@ -1,0 +1,140 @@
+/* Custom styles for the logo section */
+.logo-section {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logo-section img {
+    height: 80px;
+}
+
+.logo-section h5 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo-section small {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Custom styles for the main menu */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 10px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+
+.navbar-dark .navbar-toggler {
+    border: none;
+}
+
+.navbar-dark .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Custom styles for the login/registration page */
+.auth-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.auth-container .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-container .form-control {
+    border-radius: 4px;
+}
+
+.auth-container .btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.logo-comelec {
+    height: 150px;
+}
+
+.logo-slogan {
+    color: #898989;
+    font-family: Verdana;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.logo-container {
+    display: block;
+    text-align: left;
+    padding: 20px;
+    background: #61A979;
+    color: white;
+    border-bottom: 5px solid yellow;
+}
+
+.tagline-container {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    margin-top: 35px;
+    margin-left: 15px;
+}
+
+.main-menu {
+    margin-bottom: 20px;
+}
+
+.mobile-logo-comelec {
+    height: 40px;
+}
+
+.mobile-logo-container {
+    text-align: left;
+}
+
+.navbar-container {
+    margin-bottom: 10px;
+}
+
+.auth-container {
+    max-width: 800px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
+
+[data-amplify-container] {
+    min-width: 50%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.tag-rep, .tag-pfad,.tag-comelec {
+    line-height: 10px;
+}
+
+.tag-comelec {
+    font-size: 27px;
+}
+
+.tag-pfad {
+    font-weight: bold;
+    font-size: 15px;
+    font-family: sans-serif;
+}
