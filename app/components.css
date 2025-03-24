@@ -43,6 +43,11 @@
 .auth-buffer {
     margin-top: 50px;
 }
+
+.auth-misc-link {
+    color: #1a7990;
+}
+
 .auth-container {
     max-width: 400px;
     margin: 0 auto;

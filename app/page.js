@@ -121,10 +121,10 @@ export default function Home() {
                   )}
                   {!accessToken && (
                       <div>
-                        <button className="btn btn-link mt-3" onClick={() => setIsLogin(!isLogin)}>
+                        <button className="btn btn-link mt-3 auth-misc-link" onClick={() => setIsLogin(!isLogin)}>
                           {isLogin ? "Need an account? Register here" : "Already have an account? Login here"}
                         </button>
-                        <button className="btn btn-link mt-3" onClick={() => setShowForgotPassword(true)}>
+                        <button className="btn btn-link mt-3 auth-misc-link" onClick={() => setShowForgotPassword(true)}>
                           Forgot Password?
                         </button>
                       </div>
