@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { Container, Button, Form } from "react-bootstrap";
 
@@ -6,8 +7,12 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(true);
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [name, setName] = useState("");
+  const [isLogin, setIsLogin] = useState(true); // Toggle Login/Register
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [accessToken, setAccessToken] = useState(null); // Store access token
 
   useEffect(() => {
     // Check if the user is logged in
@@ -17,21 +22,36 @@ export default function Home() {
     }
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleAuth = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
 
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem("sessionToken", data.sessionToken);
-      localStorage.setItem("userEmail", email);
-      setUser({ email });
-    } else {
-      alert(data.message);
+    try {
+      const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(isLogin ? { email, password } : { email, password, name }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Authentication failed");
+
+      if (isLogin) {
+        setAccessToken(data.accessToken);
+        setSuccess("Login successful!");
+        localStorage.setItem("sessionToken", data.sessionToken);
+        localStorage.setItem("userEmail", email);
+        setUser({ email });
+      } else {
+        setSuccess("Registration successful! Check your email.");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,35 +64,63 @@ export default function Home() {
 
   if (!user) {
     return (
-        <Container className="mt-5">
-          <h2>Login</h2>
-          <Form onSubmit={handleLogin}>
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Login
-            </Button>
-          </Form>
-        </Container>
+        <div className="container mt-5">
+          <h2>{isLogin ? "Login" : "Register"}</h2>
+          {error && <div className="alert alert-danger">{error}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
+          {!accessToken ? (
+              <form onSubmit={handleAuth}>
+                {!isLogin && (
+                    <div className="mb-3">
+                      <label className="form-label">Full Name</label>
+                      <input
+                          type="text"
+                          className="form-control"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                      />
+                    </div>
+                )}
+                <div className="mb-3">
+                  <label className="form-label">Email</label>
+                  <input
+                      type="email"
+                      className="form-control"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Password</label>
+                  <input
+                      type="password"
+                      className="form-control"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                  {loading ? (isLogin ? "Logging in..." : "Registering...") : isLogin ? "Login" : "Register"}
+                </button>
+              </form>
+          ) : (
+              <button className="btn btn-danger mt-3" onClick={handleLogout}>
+                Logout
+              </button>
+          )}
+          {!accessToken && (
+              <button className="btn btn-link mt-3" onClick={() => setIsLogin(!isLogin)}>
+                {isLogin ? "Need an account? Register here" : "Already have an account? Login here"}
+              </button>
+          )}
+        </div>
     );
   }
 
+  // Home Contents
   return (
       <Container className="mt-5">
         <h2>Welcome, {user.email}!</h2>

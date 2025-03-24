@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components.css";
-import Header from "@/app/components/Header";
+import Header from "@/app/components/globals/Header";
 
 export const metadata = {
   title: "COMELEC - Commission on Elections - eSOCE Portal",

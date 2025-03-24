@@ -1,4 +1,9 @@
 import React from "react";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import Image from 'next/image';
+
+
+console.log("Navbar.Brand:", Navbar.Brand);
 
 export default function Header() {
     return (
