@@ -1,4 +1,7 @@
 import React from "react";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+
+console.log("Navbar.Brand:", Navbar.Brand);
 
 export default function Header() {
     return (

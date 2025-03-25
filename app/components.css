@@ -40,6 +40,14 @@
 }
 
 /* Custom styles for the login/registration page */
+.auth-buffer {
+    margin-top: 50px;
+}
+
+.auth-misc-link {
+    color: #1a7990;
+}
+
 .auth-container {
     max-width: 400px;
     margin: 0 auto;
@@ -117,6 +125,10 @@
 .auth-container {
     max-width: 800px; /* Adjust the width as needed */
     margin: 0 auto;
+}
+
+.auth-submit-button {
+    background-color: #1a7990;
 }
 
 [data-amplify-container] {

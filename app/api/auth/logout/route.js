@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import AWS from "aws-sdk";
+import { CognitoIdentityProviderClient, GlobalSignOutCommand } from "@aws-sdk/client-cognito-identity-provider";
 
-AWS.config.update({ region: process.env.AWS_REGION });
-
-const cognito = new AWS.CognitoIdentityServiceProvider();
+// Initialize Cognito Client
+const client = new CognitoIdentityProviderClient({ region: process.env.AWS_REGION });
 
 export async function POST(req) {
   try {
@@ -13,8 +12,11 @@ export async function POST(req) {
       throw new Error("Access token is required");
     }
 
-    const params = { AccessToken: accessToken };
-    await cognito.globalSignOut(params).promise();
+    // Create a GlobalSignOutCommand
+    const command = new GlobalSignOutCommand({ AccessToken: accessToken });
+
+    // Send the command to Cognito
+    await client.send(command);
 
     return NextResponse.json({ message: "User logged out successfully!" });
   } catch (error) {
