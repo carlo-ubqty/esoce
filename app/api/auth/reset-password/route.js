@@ -1,7 +1,9 @@
-import { CognitoIdentityServiceProvider } from "aws-sdk";
+import { NextResponse } from "next/server";
+import { CognitoIdentityProviderClient, ConfirmForgotPasswordCommand } from "@aws-sdk/client-cognito-identity-provider";
 import crypto from "crypto";
 
-const cognito = new CognitoIdentityServiceProvider();
+// Initialize Cognito Client
+const client = new CognitoIdentityProviderClient({ region: process.env.AWS_REGION });
 
 // Function to generate the secret hash
 function generateSecretHash(username, clientId, clientSecret) {
@@ -23,9 +25,10 @@ export async function POST(req) {
       throw new Error("Cognito Client ID or Client Secret is missing.");
     }
 
-    // Generate the Secret Hash
+    // Generate the secret hash
     const secretHash = generateSecretHash(email, clientId, clientSecret);
 
+    // Prepare parameters for password reset confirmation
     const params = {
       ClientId: clientId,
       Username: email,
@@ -34,10 +37,12 @@ export async function POST(req) {
       SecretHash: secretHash, // Include the secret hash
     };
 
-    await cognito.confirmForgotPassword(params).promise();
+    // Execute the Cognito command
+    const command = new ConfirmForgotPasswordCommand(params);
+    await client.send(command);
 
-    return Response.json({ message: "Password reset successful." });
+    return NextResponse.json({ message: "Password reset successful." });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

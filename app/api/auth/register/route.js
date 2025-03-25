@@ -1,23 +1,28 @@
 import { NextResponse } from "next/server";
-import AWS from "aws-sdk";
+import { CognitoIdentityProviderClient, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { generateSecretHash } from "@/lib/cognito"; // Import secret hash function
 
-AWS.config.update({ region: process.env.AWS_REGION });
-
-const cognito = new AWS.CognitoIdentityServiceProvider();
+// Initialize Cognito Client
+const client = new CognitoIdentityProviderClient({ region: process.env.AWS_REGION });
 
 export async function POST(req) {
   try {
     const { email, password, name } = await req.json();
 
-    const secretHash = generateSecretHash(
-        process.env.COGNITO_CLIENT_ID,
-        process.env.COGNITO_CLIENT_SECRET,
-        email
-    );
+    // Ensure required environment variables exist
+    const clientId = process.env.COGNITO_CLIENT_ID;
+    const clientSecret = process.env.COGNITO_CLIENT_SECRET;
 
+    if (!clientId || !clientSecret) {
+      throw new Error("Cognito Client ID or Client Secret is missing.");
+    }
+
+    // Generate the secret hash
+    const secretHash = generateSecretHash(clientId, clientSecret, email);
+
+    // Create parameters for Cognito sign-up
     const params = {
-      ClientId: process.env.COGNITO_CLIENT_ID,
+      ClientId: clientId,
       SecretHash: secretHash,
       Username: email,
       Password: password,
@@ -27,7 +32,9 @@ export async function POST(req) {
       ],
     };
 
-    await cognito.signUp(params).promise();
+    // Create and send the SignUpCommand
+    const command = new SignUpCommand(params);
+    await client.send(command);
 
     return NextResponse.json({
       message: "User registered successfully. Check email for verification.",
