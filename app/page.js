@@ -9,7 +9,17 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [politicalParty, setPoliticalParty] = useState("");
+  const [positionSought, setPositionSought] = useState("");
+  const [province, setProvince] = useState("");
+  const [cityMunicipality, setCityMunicipality] = useState("");
+  const [district, setDistrict] = useState("");
+  const [region, setRegion] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [partyList, setPartyList] = useState("");
   const [isLogin, setIsLogin] = useState(true); // Toggle Login/Register
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -78,18 +88,30 @@ export default function Home() {
                   {success && <div className="alert alert-success">{success}</div>}
                   {!accessToken ? (
                       <form onSubmit={handleAuth}>
-                        {/*{!isLogin && (*/}
-                        {/*    <div className="mb-3">*/}
-                        {/*      <label className="form-label">Full Name</label>*/}
-                        {/*      <input*/}
-                        {/*          type="text"*/}
-                        {/*          className="form-control"*/}
-                        {/*          value={name}*/}
-                        {/*          onChange={(e) => setName(e.target.value)}*/}
-                        {/*          required*/}
-                        {/*      />*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
+                        {!isLogin && (
+                            <>
+                              <div className="mb-3">
+                                <label className="form-label">First Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    required
+                                />
+                              </div>
+                              <div className="mb-3">
+                                <label className="form-label">Surname</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={surname}
+                                    onChange={(e) => setSurname(e.target.value)}
+                                    required
+                                />
+                              </div>
+                            </>
+                        )}
                         <div className="mb-3">
                           <label className="form-label">Email</label>
                           <input
