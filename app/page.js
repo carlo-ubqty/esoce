@@ -73,7 +73,7 @@ export default function Home() {
             {!showForgotPassword ? (
 
                 <div className="p-4 border rounded shadow-sm">
-                  <h5 className="mt-4 mb-3 border-bottom pb-2">{isLogin ? "Login Details" : "Personal Details"}</h5>
+                  <h5 className="mt-4 mb-3 border-bottom pb-2">{isLogin ? "Sign In" : "Create Account"}</h5>
                   {error && <div className="alert alert-danger">{error}</div>}
                   {success && <div className="alert alert-success">{success}</div>}
                   {!accessToken ? (
