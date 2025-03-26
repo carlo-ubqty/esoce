@@ -78,18 +78,18 @@ export default function Home() {
                   {success && <div className="alert alert-success">{success}</div>}
                   {!accessToken ? (
                       <form onSubmit={handleAuth}>
-                        {!isLogin && (
-                            <div className="mb-3">
-                              <label className="form-label">Full Name</label>
-                              <input
-                                  type="text"
-                                  className="form-control"
-                                  value={name}
-                                  onChange={(e) => setName(e.target.value)}
-                                  required
-                              />
-                            </div>
-                        )}
+                        {/*{!isLogin && (*/}
+                        {/*    <div className="mb-3">*/}
+                        {/*      <label className="form-label">Full Name</label>*/}
+                        {/*      <input*/}
+                        {/*          type="text"*/}
+                        {/*          className="form-control"*/}
+                        {/*          value={name}*/}
+                        {/*          onChange={(e) => setName(e.target.value)}*/}
+                        {/*          required*/}
+                        {/*      />*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
                         <div className="mb-3">
                           <label className="form-label">Email</label>
                           <input
