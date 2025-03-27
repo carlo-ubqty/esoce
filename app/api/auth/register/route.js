@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import { CognitoIdentityProviderClient, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { generateSecretHash } from "@/lib/cognito";
-import User from "@/models/User";
+import Candidate from "@/models/Candidate";
 
 // Initialize Cognito Client
 const client = new CognitoIdentityProviderClient({ region: process.env.AWS_REGION });
 
 export async function POST(req) {
   try {
-    const { email, password, name } = await req.json();
+    const { email, password, userType, firstName, surname, nickName, name, politicalParty, positionSought, province, cityMunicipality, district, region, contactNo, partyList  } = await req.json();
 
     // Ensure required environment variables exist
     const clientId = process.env.COGNITO_CLIENT_ID;
@@ -29,7 +29,7 @@ export async function POST(req) {
       Password: password,
       UserAttributes: [
         { Name: "email", Value: email },
-        { Name: "name", Value: name },
+        { Name: "custom:userType", Value: userType },
       ],
     };
 
@@ -38,7 +38,21 @@ export async function POST(req) {
     await client.send(command);
 
     // Save user in MariaDB
-    await User.create({ email, name });
+    await Candidate.create({
+      email: email,
+      firstName: firstName,
+      surname: surname,
+      nickName: nickName,
+      fullName: `${firstName} ${surname}`.trim(),
+      politicalParty: politicalParty,
+      positionSought:positionSought,
+      province: province,
+      district: district,
+      region: region,
+      contactNo: contactNo,
+      partyList: partyList,
+      cityMunicipality: cityMunicipality,
+    });
 
     return NextResponse.json({
       message: "User registered successfully. Check email for verification.",
