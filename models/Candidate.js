@@ -2,9 +2,9 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "@/lib/db";
 
 const Candidate = sequelize.define("Candidate", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+    candidateId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
     },
     email: {
@@ -17,6 +17,10 @@ const Candidate = sequelize.define("Candidate", {
         allowNull: true,
     },
     surname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    fullName: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -64,6 +68,14 @@ const Candidate = sequelize.define("Candidate", {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
     },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+}, {
+    tableName: "candidate",
+    underscored: true,
+    timestamps: true,
 });
 
 export default Candidate;
