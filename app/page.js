@@ -99,7 +99,7 @@ export default function Home() {
     setPartyList("");
   };
 
-
+  // TODO create components for login, registration, and logout
   if (!user) {
     return (
         <div className="auth-buffer">
@@ -142,6 +142,7 @@ export default function Home() {
                                     value={userType}
                                     onChange={(e) => (
                                         setUserType(e.target.value))}
+                                    required
                                 />
                               </div>
                               <div className="mb-3">
@@ -152,6 +153,7 @@ export default function Home() {
                                     value={firstName}
                                     onChange={(e) => (
                                         setFirstName(e.target.value))}
+                                    required
                                 />
                               </div>
                               <div className="mb-3">
@@ -161,6 +163,7 @@ export default function Home() {
                                     className="form-control"
                                     value={surname}
                                     onChange={(e) => setSurname(e.target.value)}
+                                    required
                                 />
                               </div>
                               <div className="mb-3">
