@@ -11,6 +11,7 @@ const Candidate = sequelize.define("Candidate", {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        field: "email_address",
     },
     firstName: {
         type: DataTypes.STRING,
