@@ -44,7 +44,7 @@ export default function LoginForm({ onLoginSuccess }) {
         <label className="form-label">Password</label>
         <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
       </div>
-      <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+      <button type="submit" className="btn btn-success w-100" disabled={loading}>
         {loading ? "Logging in..." : "Sign In"}
       </button>
     </form>
