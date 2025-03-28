@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
+
 /* Custom styles for the logo section */
 .logo-section {
     background-color: #f8f9fa;
@@ -148,5 +151,5 @@
 .tag-pfad {
     font-weight: bold;
     font-size: 15px;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
